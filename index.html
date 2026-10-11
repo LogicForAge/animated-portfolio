@@ -1,0 +1,317 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<title>LogicForAge — Digital Portfolio</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #080808;
+  --panel: #111111;
+  --text: #f5f5f5;
+  --muted: #999999;
+  --blue: #7c8cff;
+  --line: rgba(255,255,255,.12);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+nav {
+  position: fixed; inset: 0 0 auto; z-index: 10;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 23px 7%;
+  background: rgba(8,8,8,.72);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.logo { font: 700 20px 'Space Grotesk'; letter-spacing: -1px; }
+.logo span { color: var(--blue); }
+.navlinks { display: flex; gap: 28px; font-size: 13px; color: #bbb; }
+.navlinks a:hover { color: white; }
+.hero {
+  min-height: 100svh; padding: 150px 9% 80px;
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; isolation: isolate; overflow: hidden;
+}
+.glow {
+  position: absolute; z-index: -1; width: 560px; height: 560px;
+  border-radius: 50%; background: #3545b9;
+  filter: blur(150px); opacity: .22; right: -130px; top: 15%;
+  will-change: transform;
+}
+.eyebrow {
+  text-transform: uppercase; letter-spacing: 3px;
+  font-size: 11px; color: var(--blue); margin-bottom: 28px;
+}
+h1,h2,h3 { font-family: 'Space Grotesk', sans-serif; }
+.hero h1 {
+  max-width: 1000px; font-size: clamp(54px, 10vw, 125px);
+  line-height: .98; letter-spacing: -7px;
+}
+.hero h1 span {
+  color: transparent; -webkit-text-stroke: 1px #777;
+}
+.intro {
+  color: var(--muted); line-height: 1.9; max-width: 460px;
+  margin-top: 30px; font-size: 15px;
+}
+.actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
+.btn {
+  padding: 14px 22px; border-radius: 4px; font-size: 13px;
+  border: 1px solid var(--line); transition: .25s;
+}
+.btn.primary { background: #f5f5f5; color: #090909; }
+.btn:hover { transform: translateY(-3px); border-color: var(--blue); }
+.scrollhint {
+  position: absolute; bottom: 30px; left: 9%;
+  font-size: 10px; color: var(--muted); letter-spacing: 2px;
+}
+.section { padding: 120px 9%; }
+.section-label { color: var(--blue); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; }
+.section-title {
+  font-size: clamp(38px, 6vw, 76px); letter-spacing: -3px;
+  margin-top: 20px; line-height: 1.08;
+}
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+  align-items: start; margin-top: 45px;
+}
+.about-grid p { color: var(--muted); line-height: 1.9; font-size: 15px; }
+.stat {
+  padding: 22px 0; border-top: 1px solid var(--line);
+  font-size: 13px; display: flex; justify-content: space-between;
+}
+.stat span:last-child { color: var(--muted); }
+.projects-intro { padding-bottom: 40px; }
+.projects-track {
+  display: flex; gap: 22px; padding: 15px 9% 90px;
+  width: max-content;
+}
+.projects-outer { overflow: hidden; }
+.project {
+  width: min(72vw, 540px); height: 370px;
+  border: 1px solid var(--line); background: var(--panel);
+  border-radius: 8px; padding: 28px; position: relative;
+  display: flex; flex-direction: column; justify-content: space-between;
+  overflow: hidden;
+}
+.project::before {
+  content: ""; position: absolute; width: 260px; height: 260px;
+  background: var(--project-glow, #303b8b);
+  filter: blur(100px); opacity: .4; right: -60px; top: -70px;
+}
+.project > * { position: relative; }
+.project-no { font-size: 12px; color: var(--muted); }
+.project h3 { font-size: clamp(26px, 4vw, 42px); letter-spacing: -1px; }
+.project p { color: #aaa; max-width: 320px; line-height: 1.7; font-size: 13px; }
+.project-bottom { display: flex; justify-content: space-between; align-items: center; }
+.tag { font-size: 11px; border: 1px solid var(--line); border-radius: 50px; padding: 8px 12px; }
+.arrow { font-size: 25px; color: var(--blue); }
+.skills {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  margin-top: 45px; border-top: 1px solid var(--line);
+}
+.skill {
+  padding: 28px 15px; border-bottom: 1px solid var(--line);
+  border-right: 1px solid var(--line); color: #bbb; font-size: 14px;
+  transition: .3s;
+}
+.skill:hover { background: #151515; color: white; }
+.contact { text-align: center; padding: 150px 7%; }
+.contact .section-title { max-width: 850px; margin: 20px auto; }
+.contact p { color: var(--muted); line-height: 1.8; }
+footer {
+  border-top: 1px solid var(--line); padding: 26px 7%;
+  display: flex; justify-content: space-between; gap: 20px;
+  color: var(--muted); font-size: 12px;
+}
+.reveal { opacity: 0; transform: translateY(35px); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; }
+}
+@media(max-width:700px) {
+  nav { padding: 18px 6%; }
+  .navlinks { gap: 14px; font-size: 11px; }
+  .hero { padding: 140px 7% 100px; }
+  .hero h1 { letter-spacing: -3px; }
+  .glow { width: 300px; height: 300px; }
+  .section { padding: 85px 7%; }
+  .section-title { letter-spacing: -1.5px; }
+  .about-grid { grid-template-columns: 1fr; gap: 30px; }
+  .project { width: 82vw; height: 330px; padding: 22px; }
+  .projects-track { padding-left: 7%; }
+  .skills { grid-template-columns: repeat(2, 1fr); }
+  .contact { padding: 100px 7%; }
+  footer { padding: 24px 7%; flex-wrap: wrap; }
+}
+</style>
+</head>
+
+<body>
+<nav>
+  <a class="logo" href="#">Logic<span>ForAge.</span></a>
+  <div class="navlinks">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="glow" id="glow"></div>
+  <div class="eyebrow reveal">Developer · Learner · Builder</div>
+  <h1 class="reveal">Building the<br><span>next digital</span><br>experience.</h1>
+  <p class="intro reveal">
+    Welcome to my digital space. I explore technology, build projects,
+    and turn ideas into meaningful experiences on the web.
+  </p>
+  <div class="actions reveal">
+    <a class="btn primary" href="#projects">Explore my work ↘</a>
+    <a class="btn" href="#contact">Get in touch ↗</a>
+  </div>
+  <div class="scrollhint">SCROLL TO EXPLORE ↓</div>
+</header>
+
+<section class="section" id="about">
+  <div class="section-label reveal">01 / A little about me</div>
+  <h2 class="section-title reveal">Curiosity creates.<br>Code brings it to life.</h2>
+  <div class="about-grid">
+    <p class="reveal">
+      I'm a technology enthusiast passionate about discovering how things
+      work and building things that solve real problems. Every project is
+      an opportunity to learn something new and push my skills further.
+    </p>
+    <div class="reveal">
+      <div class="stat"><span>Focus</span><span>Development & Technology</span></div>
+      <div class="stat"><span>Currently</span><span>Learning and building</span></div>
+      <div class="stat"><span>Approach</span><span>Learn · Build · Improve</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section projects-intro">
+    <div class="section-label reveal">02 / Selected work</div>
+    <h2 class="section-title reveal">Things I've<br>put into motion.</h2>
+    <p class="intro reveal">A collection of projects, experiments and ideas.</p>
+  </div>
+  <div class="projects-outer">
+    <div class="projects-track" id="track">
+      <article class="project" style="--project-glow:#3848bd">
+        <div class="project-no">PROJECT / 01</div>
+        <div><h3>IDT Project</h3><p>A first-semester project focused on exploring ideas and building a practical solution.</p></div>
+        <div class="project-bottom"><span class="tag">Academic project</span><span class="arrow">↗</span></div>
+      </article>
+      <article class="project" style="--project-glow:#246e69">
+        <div class="project-no">PROJECT / 02</div>
+        <div><h3>Web Experiments</h3><p>Small experiments in interactive interfaces, responsive layouts and creative code.</p></div>
+        <div class="project-bottom"><span class="tag">Web development</span><span class="arrow">↗</span></div>
+      </article>
+      <article class="project" style="--project-glow:#7942a8">
+        <div class="project-no">PROJECT / 03</div>
+        <div><h3>What's Next?</h3><p>New ideas take shape here. More projects and experiments coming soon.</p></div>
+        <div class="project-bottom"><span class="tag">In progress</span><span class="arrow">↗</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="skills">
+  <div class="section-label reveal">03 / My toolkit</div>
+  <h2 class="section-title reveal">Tools I use to<br>make things happen.</h2>
+  <div class="skills reveal">
+    <div class="skill">HTML & CSS ↗</div>
+    <div class="skill">JavaScript ↗</div>
+    <div class="skill">Python ↗</div>
+    <div class="skill">Git & GitHub ↗</div>
+    <div class="skill">Problem Solving ↗</div>
+    <div class="skill">UI / UX ↗</div>
+    <div class="skill">Cloud Computing ↗</div>
+    <div class="skill">Always Learning ↗</div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="section-label reveal">04 / What's next?</div>
+  <h2 class="section-title reveal">Have an idea?<br>Let's build it.</h2>
+  <p class="reveal">Always open to learning, collaboration and interesting projects.</p>
+  <div class="actions reveal" style="justify-content:center">
+    <a class="btn primary" href="https://github.com/LogicForAge" target="_blank" rel="noopener noreferrer">Find me on GitHub ↗</a>
+  </div>
+</section>
+
+<footer>
+  <a class="logo" href="#">Logic<span>ForAge.</span></a>
+  <span>Designed with curiosity · © <span id="year"></span></span>
+  <a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Back to top ↑</a>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+if ("gsap" in window && "ScrollTrigger" in window &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.utils.toArray(".reveal").forEach((el) => {
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 0.85,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: el,
+        start: "top 88%",
+        toggleActions: "play none none reverse"
+      }
+    });
+  });
+
+  const track = document.querySelector("#track");
+  const outer = document.querySelector(".projects-outer");
+
+  if (window.matchMedia("(min-width: 701px)").matches) {
+    gsap.to(track, {
+      x: () => -(track.scrollWidth - window.innerWidth),
+      ease: "none",
+      scrollTrigger: {
+        trigger: outer,
+        start: "top top",
+        end: () => "+=" + (track.scrollWidth - window.innerWidth),
+        pin: true,
+        scrub: 1,
+        invalidateOnRefresh: true
+      }
+    });
+  }
+
+  gsap.to("#glow", {
+    y: 180,
+    x: -70,
+    ease: "none",
+    scrollTrigger: {
+      trigger: ".hero",
+      start: "top top",
+      end: "bottom top",
+      scrub: true
+    }
+  });
+}
+</script>
+</body>
+</html>
